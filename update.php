@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
 <form action="write.php" method="post" onsubmit="return check()">

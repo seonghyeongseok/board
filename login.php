@@ -21,6 +21,7 @@ $array = mysqli_fetch_array($result);
 session_destroy();  // 제거가 안됨....
 if($array) {
     Header("Location:http://localhost/newBoard/list.php");
+    session_start();
     $_SESSION['id'] = $id;
     $_SESSION['passwd'] = $passwd;
 }

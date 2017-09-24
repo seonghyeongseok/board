@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
 <?php
@@ -28,10 +29,14 @@ $contents = $array['contents'];
 $writer = $array['writer'];
 $date = $array['reg_date'];
 
-echo $title . "<br>";
-echo $contents . "<br>";
-echo $writer . "<br>";
-echo $date . "<br>";
+echo "<div align=\"center\" class=\"container\">";
+echo "<table class=\"table table-striped\">";
+echo "<tr><td>".$title . "</td>";
+echo "<td>".$contents . "</td></tr>";
+echo "<tr><td>".$writer . "</td>";
+echo "<td>".$date . "</td></tr>";
+echo "</table>";
+
 
 $sql = "update list set hits = hits + 1 where id = $list_id";
 $result = mysqli_query($connect, $sql);
@@ -81,8 +86,8 @@ $table_lows = mysqli_num_rows($results);
 //  현재 게시글의 id값을 넘겨준다.
 echo "<form action=\"comment.php\" method=\"post\" onsubmit=\"return check()\">
 <input type=\"hidden\" name=\"parent\" value=\"$list_id\">
-    <textarea name=\"contents\" id=\"contents\" cols=\"60\" rows=\"3\"></textarea>
-    <input type=\"submit\" value=\"댓글작성\">
+    <textarea name=\"contents\" id=\"contents\" cols=\"50\" rows=\"1\" ></textarea>
+    <input type=\"submit\" value=\"댓글작성\"  class=\"btn btn-default\">
 </form>";
 ?>
 
@@ -95,7 +100,13 @@ echo "<form action=\"comment.php\" method=\"post\" onsubmit=\"return check()\">
         return true;
     }
 </script>
-<table>
+
+<table class="table table-bordered">
+    <tr>
+        <td>작성자</td>
+        <td>댓글 내용</td>
+        <td>작성 시간</td>
+    </tr>
     <?php
     for ($i = 0; $i < $table_lows; $i++) {
         $array = mysqli_fetch_array($results);
@@ -112,15 +123,16 @@ echo "<form action=\"comment.php\" method=\"post\" onsubmit=\"return check()\">
     }
     ?>
 </table>
+
 <form action="list.php" method='post'>
     <?php
     for ($i = $_SESSION['page'] - 2; $i < $_SESSION['page'] + 3; $i++) {
         if ($i > 0) {
             if ($i <= $lastPage) {
                 if ($i == $_SESSION['page']) {
-                    echo "<input type='submit' style='color:red' value=$i>";
+                    echo "<input type='submit' style='color:red' value=$i class=\"btn btn-default\">";
                 } else {
-                    echo "<input type='submit' name='page' value=$i>";
+                    echo "<input type='submit' name='page' value=$i class=\"btn btn-default\">";
                 }
             }
         }
@@ -128,13 +140,14 @@ echo "<form action=\"comment.php\" method=\"post\" onsubmit=\"return check()\">
     ?>
 </form>
 <form action="list.php" method="post">
-    <input type="submit" value="목록으로">
+    <input type="submit" value="목록으로" class="btn btn-default pull-right">
 </form>
 <form action="update.php" method="post" onsubmit="return idCheck()">
-    <input type="submit" value="글 수정">
+    <input type="submit" value="글 수정" class="btn btn-default pull-right">
 </form>
 <form action="delete.php" method="post" onsubmit="return idCheck()">
-    <input type="submit" value="글 삭제">
+    <input type="submit" value="글 삭제" class="btn btn-default pull-right">
 </form>
+</div>
 </body>
 </html>
